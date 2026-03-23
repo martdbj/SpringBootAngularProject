@@ -6,11 +6,13 @@ All the information is stored in a **Mongo Db** database and can be access and m
 The application was built with the purpose of improving my technical skills using Angular and Spring Boot, trying always to use best practices.
 
 ## Architecture 
+```
   Mongo DB
      ↓
  Spring Boot
      ↓
   Angular
+```
 
 ## How to run the application
 Clone the repository to your local machine
