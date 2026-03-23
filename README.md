@@ -2,7 +2,7 @@
 Small application built using **Angular and Spring Boot** that allows users to manage their companies, employees and devices.
 
 
-All the information is stored in a **Mongo DB** database and can be accessed and modified through the API. 
+All the information is stored in a **Mongo DB** database and can be accessed and modified through the Spring Boot API. 
 
 The frontend uses this API for letting the user have a total control in a simpler way.
 
