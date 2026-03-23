@@ -1,0 +1,219 @@
+<div class="container">
+    <div class="mt-5 d-flex justify-content-between">
+        <h2 class="mb-0">Employees</h2>
+        <button class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#addModal'>
+            Add Employee
+        </button>
+    </div>
+    @for (employee of employees(); track employee.id) {
+    <ul class="list-group mt-3 card border-black text">
+        <div class="card-header fw-bold font-monospace">ID: <span class="">{{ employee.id }} </span></div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <strong>Name:</strong> {{ employee.name }} <br>
+                    <strong>Email:</strong> {{ employee.email }}
+                </div>
+
+                <div class="col-md-4">
+                    <strong>Company</strong> <br>
+                    <p class="badge bg-primary">{{ getCompanyName(employee.companyId) }}</p>
+                </div>
+
+                <div class="col-md-4">
+                    <strong>Devices</strong> <br>
+                    <div class="d-flex gap-1">
+                        @for (device of employee.devicesId; track $index) {
+                        <p class="badge bg-secondary">
+                            {{ device }}
+                        </p>
+                        } @empty {
+                        <p>There are no devices</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <li class="list-group-item d-flex card-footer justify-content-between">
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <button class='btn btn-warning' (click)="updatePassIdAndFillForm(employee.id)" data-bs-toggle='modal'
+                    data-bs-target='#updateModal'>
+                    Update
+                </button>
+                <button class="btn btn-danger" (click)="deleteOnSubmit(employee.id)">Delete</button>
+                <button class="btn btn-secondary" data-bs-toggle="modal" (click)="updatePassIdAndFillForm(employee.id)"
+                data-bs-target="#addDevicesModal">Add Device</button>
+            </div>
+        </li>
+    </ul>
+    } @empty {
+    <p>There are no employees</p>
+    }
+
+</div>
+
+<div class='modal fade' id='addModal' data-bs-backdrop="static" data-bs-keyboard="false" tabindex='-1'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title'>Add Employee</h5>
+            </div>
+            <form (submit)="addOnSubmit($event)" (submit)="addForm().reset()">
+                <div class='modal-body'>
+                    <div>
+                        <label>
+                            Email
+                            <input class="form-control" type="email" [formField]="addForm.email" />
+                        </label>
+                        @if (addForm.email().invalid() && addForm.email().touched()) {
+                        <div class="error">
+                            @for (error of addForm.email().errors(); track error.kind) {
+                            <span>{{ error.message }}</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                    <div>
+                        <label>
+                            Name
+                            <input class="form-control" type="name" [formField]="addForm.name" />
+                        </label>
+                        @if (addForm.name().invalid() && addForm.name().touched()) {
+                        <div class="error">
+                            @for (error of addForm.name().errors(); track error.kind) {
+                            <span>{{ error.message }}</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                    <div>
+                        <label>
+                            Company
+                            <select class="form-select" [formField]="addForm.companyId"
+                                aria-label="Default select example">
+                                @for (company of companies(); track company.id) {
+                                <option [value]="company.id">{{ company.name }}</option>
+                                }
+                            </select>
+                        </label>
+                        @if (addForm.companyId().invalid() && addForm.companyId().touched()) {
+                        <div class="error">
+                            @for (error of addForm.companyId().errors(); track error.kind) {
+                            <span>{{ error.message }}</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" [disabled]="addForm().invalid()" class="btn btn-primary"
+                        data-bs-dismiss="modal">Add</button>
+                    <button type="button" class="btn btn-secondary" (click)="closeUpdate()"
+                        data-bs-dismiss="modal" (click)="addForm().reset()">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class='modal fade' id='updateModal' data-bs-backdrop="static" data-bs-keyboard="false" tabindex='-1'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title'>Update Employee</h5>
+            </div>
+            <form (submit)="updateOnSubmit($event)">
+                <div class='modal-body'>
+                    <div>
+                        <label>
+                            Email
+                            <input class="form-control" type="email" [formField]="updateForm.email" />
+                        </label>
+                        @if (updateForm.email().invalid() && updateForm.email().touched()) {
+                        <div class="error">
+                            @for (error of updateForm.email().errors(); track error.kind) {
+                            <span>{{ error.message }}</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                    <div>
+                        <label>
+                            Name
+                            <input class="form-control" type="name" [formField]="updateForm.name" />
+                        </label>
+                        @if (updateForm.name().invalid() && updateForm.name().touched()) {
+                        <div class="error">
+                            @for (error of updateForm.name().errors(); track error.kind) {
+                            <span>{{ error.message }}</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                    <div>
+                        <label>
+                            Company
+                            <select class="form-select" [formField]="updateForm.companyId"
+                                aria-label="Default select example">
+                                @for (company of companies(); track company.id) {
+                                <option [value]="company.id">{{ company.name }}</option>
+                                }
+                            </select>
+                        </label>
+                        @if (addForm.companyId().invalid() && addForm.companyId().touched()) {
+                        <div class="error">
+                            @for (error of addForm.companyId().errors(); track error.kind) {
+                            <span>{{ error.message }}</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning" [disabled]="updateForm().invalid()" data-bs-dismiss="modal" type="submit">Update</button>
+                    <button type="button" class="btn btn-secondary" (click)="closeUpdate()"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class='modal fade' id='addDevicesModal' data-bs-backdrop="static" data-bs-keyboard="false" tabindex='-1'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title'>Add Devices</h5>
+            </div>
+            <form (submit)="updateOnSubmit($event)">
+                <div class='modal-body'>
+                    @for (device of displayAvailableDevices(); track device.serialNumber) {
+                    <ul class="list-group mt-3 card border-black text">
+                        <div class="card-header fw-bold font-monospace">Serial Number: <span class="">{{
+                                device.serialNumber }} </span>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <strong>Name:</strong> {{ device.name }} <br>
+                                    <strong>Type:</strong> {{ device.type }}
+                                </div>
+                                <button class="btn btn-{{ checkDeviceStatusAndReturnButtonColour(device) }} col-md-4" (click)="checkDeviceStatusAndExecuteMethod(device)">{{ checkDeviceStatusAndReturnButtonText(device) }}</button>
+                            </div>
+                        </div>
+                    </ul>
+                    } @empty {
+                    <p>There are no Devices</p>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="closeUpdate()"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

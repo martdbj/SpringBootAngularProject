@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="mt-5 d-flex justify-content-between">
+        <h2 class="mb-0">Companies</h2>
+        <button class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#addModal'>
+            Add Company
+        </button>
+    </div>
+    @for (company of companies(); track company.name) {
+    <ul class="list-group mt-3 card border-black text">
+        <div class="card-header fw-bold font-monospace">ID: <span class="">{{ company.id }} </span>
+        </div>
+
+        <div class="card-body">
+            <strong>Name: </strong> {{ company.name }}
+        </div>
+
+        <li class="list-group-item d-flex card-footer justify-content-between">
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <button class='btn btn-warning' (click)="updatePassIdAndFillForm(company.id)" data-bs-toggle='modal'
+                    data-bs-target='#updateModal'>
+                    Update
+                </button>
+                <button class="btn btn-danger" (click)="deleteOnSubmit(company.id)">Delete</button>
+            </div>
+        </li>
+    </ul>
+    } @empty {
+    <p>There are no Devices</p>
+    }
+</div>
+
+<!--Add Company Modal-->
+<div class='modal fade' id='addModal' tabindex='-1'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title'>Add Company</h5>
+            </div>
+            <form (submit)="addOnSubmit($event)" (submit)="addForm().reset()">
+                <div class='modal-body'>
+                    <div>
+                        <label>
+                            Name
+                            <input class="form-control" type="name" [formField]="addForm.name" />
+                        </label>
+                        @if (addForm.name().invalid() && addForm.name().touched()) {
+                        <div class="error">
+                            @for (error of addForm.name().errors(); track error.kind) {
+                            <span>{{ error.message }}</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="addForm().invalid()"  data-bs-dismiss="modal">Add</button>
+                    <button type="button" class="btn btn-secondary" (click)="closeUpdate()" data-bs-dismiss="modal" (click)="addForm().reset()">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Update Company MOdal-->
+<div class='modal fade' id='updateModal' tabindex='-1'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title'>Update Company</h5>
+            </div>
+            <form (submit)="updateOnSubmit($event)">
+                <div class='modal-body'>
+                    <div>
+                        <label>
+                            Name
+                            <input class="form-control" type="name" [formField]="updateForm.name" />
+                        </label>
+                        @if (updateForm.name().invalid() && updateForm.name().touched()) {
+                        <div class="error">
+                            @for (error of updateForm.name().errors(); track error.kind) {
+                            <span>{{ error.message }}</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning" type="submit" [disabled]="updateForm().invalid()" data-bs-dismiss="modal">Update</button>
+                    <button type="button" class="btn btn-secondary" (click)="closeUpdate()" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

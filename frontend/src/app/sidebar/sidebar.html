@@ -1,0 +1,33 @@
+<div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="sidebarMenu">
+    <div class="offcanvas-header border-bottom border-secondary">
+        <h5 class="offcanvas-title">Main Menu</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item"><a href="employees" class="nav-link text-white">Employees</a></li>
+            <li class="nav-item"><a href="devices" class="nav-link text-white">Devices</a></li>
+            <li class="nav-item"><a href="companies" class="nav-link text-white">Companies</a></li>
+        </ul>
+    </div>
+</div>
+
+<nav class="navbar navbar-dark bg-secondary shadow-sm px-3" style="height: 80px;">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+        
+        <div class="d-flex justify-content-start">
+            <button class="btn btn-primary shadow-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
+                ☰ <span class="d-none d-sm-inline">Menu</span>
+            </button>
+        </div>
+
+        <div class="flex-grow-1 text-center">
+            <p class="text-white mb-0 h1 h2-md text-nowrap">
+                Management System
+            </p>
+        </div>
+
+        <div class="d-none d-sm-block"></div>
+        
+    </div>
+</nav>

@@ -1,0 +1,164 @@
+<div class="container">
+    <div class="mt-5 d-flex justify-content-between">
+        <h2 class="mb-0">Devices</h2>
+        <button class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#addModal'>
+            Add Device
+        </button>
+    </div>
+    @for (device of devices(); track device.serialNumber) {
+    <ul class="list-group mt-3 card border-black text">
+        <div class="card-header fw-bold font-monospace">Serial Number: <span class="">{{ device.serialNumber }} </span>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <strong>Name:</strong> {{ device.name }} <br>
+                    <strong>Type:</strong> {{ device.type }}
+                </div>
+
+                <div class="col-md-4">
+                    <strong>Employee</strong> <br>
+                    <p class="badge bg-primary">{{ getEmployeeName(device.employeeId) }}</p>
+                </div>
+            </div>
+        </div>
+
+        <li class="list-group-item d-flex card-footer justify-content-between">
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <button class='btn btn-warning' (click)="updatePassSerialNumberAndFillForm(device.serialNumber)"
+                    data-bs-toggle='modal' data-bs-target='#updateModal'>
+                    Update
+                </button>
+                <button class="btn btn-danger" (click)="deleteOnSubmit(device.serialNumber)">Delete</button>
+            </div>
+        </li>
+    </ul>
+    } @empty {
+    <p>There are no Devices</p>
+    }
+
+</div>
+
+<!--Add Company Modal-->
+<div class='modal fade' id='addModal' data-bs-backdrop="static" data-bs-keyboard="false" tabindex='-1'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title'>Add Company</h5>
+            </div>
+            <form (submit)="addOnSubmit($event)" (submit)="addForm().reset()">
+                <div class='modal-body'>
+                    <div>
+                        <div>
+                            <label>
+                                Serial Number
+                                <input class="form-control" type="name" [formField]="addForm.serialNumber" />
+                            </label>
+                            @if (addForm.serialNumber().invalid() && addForm.serialNumber().touched()) {
+                            <div class="error">
+                                @for (error of addForm.serialNumber().errors(); track error.kind) {
+                                <span>{{ error.message }}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                        <div>
+                            <label>
+                                Name
+                                <input class="form-control" type="description" [formField]="addForm.name" />
+                            </label>
+                            @if (addForm.name().invalid() && addForm.name().touched()) {
+                            <div class="error">
+                                @for (error of addForm.name().errors(); track error.kind) {
+                                <span>{{ error.message }}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                        <div>
+                            <label>
+                                Type
+                                <input class="form-control" type="number" [formField]="addForm.type" />
+                            </label>
+                            @if (addForm.type().invalid() && addForm.type().touched()) {
+                            <div class="error">
+                                @for (error of addForm.type().errors(); track error.kind) {
+                                <span>{{ error.message }}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="addForm().invalid()"
+                        data-bs-dismiss="modal">Add</button>
+                    <button type="button" class="btn btn-secondary" (click)="closeUpdate()"
+                        data-bs-dismiss="modal" (click)="addForm().reset()">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Update modal-->
+<div class='modal fade' id='updateModal' data-bs-backdrop="static" data-bs-keyboard="false" tabindex='-1'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title'>Update Device</h5>
+            </div>
+            <form (submit)="updateOnSubmit($event)">
+                <div class='modal-body'>
+                    <div>
+                        <div>
+                            <label>
+                                Serial Number
+                                <input class="form-control" type="name" [formField]="updateForm.serialNumber" />
+                            </label>
+                            @if (updateForm.serialNumber().invalid() && updateForm.serialNumber().touched()) {
+                            <div class="error">
+                                @for (error of updateForm.serialNumber().errors(); track error.kind) {
+                                <span>{{ error.message }}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                        <div>
+                            <label>
+                                Name
+                                <input class="form-control" type="name" [formField]="updateForm.name" />
+                            </label>
+                            @if (updateForm.name().invalid() && updateForm.name().touched()) {
+                            <div class="error">
+                                @for (error of updateForm.name().errors(); track error.kind) {
+                                <span>{{ error.message }}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                        <div>
+                            <label>
+                                Type
+                                <input class="form-control" type="number" [formField]="updateForm.type" />
+                            </label>
+                            @if (updateForm.type().invalid() && updateForm.type().touched()) {
+                            <div class="error">
+                                @for (error of updateForm.type().errors(); track error.kind) {
+                                <span>{{ error.message }}</span>
+                                }
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning" type="submit" data-bs-dismiss="modal" 
+                    [disabled]="updateForm().invalid()">Update</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"(click)="closeUpdate()">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
