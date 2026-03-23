@@ -1,4 +1,16 @@
-# SpringBootAngularProject
+# Company Management System
+Small application built using **Angular and Spring Boot** that allows users to manage their companies, employees and devices.
+All the information is stored in a **Mongo Db** database and can be access and modified through the API. The frontend uses this API letting the user have a total control in a simpler way.
+
+## About
+The application was built with the purpose of improving my technical skills using Angular and Spring Boot, trying always to use best practices.
+
+## Architecture 
+  Mongo DB
+     ↓
+ Spring Boot
+     ↓
+  Angular
 
 ## How to run the application
 Clone the repository to your local machine
