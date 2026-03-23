@@ -7,7 +7,7 @@ All the information is stored in a **Mongo DB** database and can be accessed and
 The frontend uses this API for letting the user have a total control in a simpler way.
 
 ## About
-The application was built with the purpose of improving my technical skills using Angular and Spring Boot, trying always to use best practices.
+The application was built with the purpose of improving my technical skills using Angular and Spring Boot, trying always to follow best practices.
 
 ## Architecture 
 ```
