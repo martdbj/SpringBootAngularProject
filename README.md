@@ -4,7 +4,7 @@ Small application built using **Angular and Spring Boot** that allows users to m
 
 All the information is stored in a **Mongo DB** database and can be accessed and modified through the API. 
 
-The frontend uses this API letting the user have a total control in a simpler way.
+The frontend uses this API for letting the user have a total control in a simpler way.
 
 ## About
 The application was built with the purpose of improving my technical skills using Angular and Spring Boot, trying always to use best practices.
