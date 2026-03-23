@@ -1,4 +1,3 @@
-# --- Java / Spring Boot ---
 target/
 *.class
 *.jar
@@ -6,23 +5,19 @@ target/
 *.ear
 *.log
 .mvn/wrapper/maven-wrapper.jar
-/build/
+build/
 .gradle/
 bin/
-
-# --- Angular / Node ---
 node_modules/
-/dist/
-/.angular/
+dist/
+.angular/
 .npm/
 package-lock.json
 yarn.lock
 connect.lock
 input-file-list.cache
-/src/assets/i18n/*.json
-/src/environments/environment.prod.ts
-
-# --- IDEs (IntelliJ, VS Code, Eclipse) ---
+src/assets/i18n/*.json
+src/environments/environment.prod.ts
 .idea/
 *.iml
 *.iws
@@ -32,8 +27,6 @@ input-file-list.cache
 .project
 .factorypath
 .metadata/
-
-# --- Otros / SO ---
 .DS_Store
 Thumbs.db
 tmp/
