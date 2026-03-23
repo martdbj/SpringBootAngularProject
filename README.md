@@ -15,7 +15,7 @@ The application was built with the purpose of improving my technical skills usin
 ```
 
 ## How to run the application
-Clone the repository to your local machine
+Clone the repository in your local machine
 ```
 git clone https://github.com/martdbj/SpringBootAngularProject.git
 ```
