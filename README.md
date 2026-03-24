@@ -30,6 +30,8 @@ cd .\SpringBootAngularProject\
 ```
 
 Run the following python script and wait 1 minute for the application startup
+
+Docker needs to be running in your computer before executing this command.
 ```
 python .\init.py
 ```
