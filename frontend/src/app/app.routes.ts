@@ -15,5 +15,9 @@ export const routes: Routes = [
     {
         path: 'devices',
         component: DeviceManagement
+    },
+    {
+        path: '',
+        component: EmployeeManagement
     }
 ];

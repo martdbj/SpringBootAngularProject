@@ -1,19 +1,21 @@
+import os
 import subprocess
 
-angular_exec = subprocess.Popen(["ng", "serve", "-o"], cwd="./frontend", shell=True)
-if angular_exec == 0:
-    print("Angular application initialized")
-else:
-    print("Angular application failed to start")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-docker_exec = subprocess.Popen(["docker", "compose", "up", "-d"], cwd="./backend")
-if docker_exec == 0:
-    print("Docker containers initialized")
-else:
-    print("Docker containers failed to start")
+path_frontend = os.path.join(BASE_DIR, "frontend")
+path_backend_root = os.path.join(BASE_DIR, "backend")
+path_spring_app = os.path.join(BASE_DIR, "backend", "backend")
 
-spring_exec = subprocess.Popen([".\\mvnw.cmd", "clean", "spring-boot:run"], cwd="./backend/backend", shell=True)
-if docker_exec == 0:
-    print("Spring Boot application initialized")
-else:
-    print("Spring Boot application failed to start")
+print("Installing angular project packages...")
+subprocess.call("npm install", cwd=path_frontend, shell=True)
+print("Project pacakges installed")
+
+
+subprocess.Popen(["docker", "compose", "up", "-d"], cwd=path_backend_root)
+
+
+subprocess.Popen([".\\mvnw.cmd", "clean", "spring-boot:run"], cwd=path_spring_app, shell=True)
+
+
+subprocess.Popen(["ng", "serve", "-o"], cwd=path_frontend, shell=True)
